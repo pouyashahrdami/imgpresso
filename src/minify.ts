@@ -15,18 +15,41 @@ export async function optimizeFolder(
     if (!formats.includes(ext)) continue;
 
     const inputPath = path.join(inputDir, file);
-    const outputPath = path.join(outputDir, file);
+    const tempOutputPath = path.join(outputDir, `.temp-${file}`);
+    const finalOutputPath = path.join(outputDir, file);
 
     try {
+      const { size: originalSize } = fs.statSync(inputPath);
+
       let img = sharp(inputPath);
+
       if (ext === "jpg" || ext === "jpeg") {
         img = img.jpeg({ quality });
       } else if (ext === "png") {
         img = img.png({ compressionLevel: 9 });
       } else if (ext === "webp") {
         img = img.webp({ quality });
+      } else {
+        console.log(`⏭ Unsupported format: ${file}`);
+        continue;
       }
-      await img.toFile(outputPath);
+      await img.toFile(tempOutputPath);
+      const { size: newSize } = fs.statSync(tempOutputPath);
+      if (newSize < originalSize) {
+        fs.renameSync(tempOutputPath, finalOutputPath);
+        const saved = originalSize - newSize;
+        const percent = ((saved / originalSize) * 100).toFixed(1);
+        console.log(
+          `✅ ${file} → ${(newSize / 1024).toFixed(1)} KB (${percent}% saved)`
+        );
+      } else {
+        fs.unlinkSync(tempOutputPath); // Remove the temp file
+        console.log(
+          `❌ ${file} not saved (new file was larger: ${(
+            newSize / 1024
+          ).toFixed(1)} KB)`
+        );
+      }
     } catch (e) {}
   }
 }
