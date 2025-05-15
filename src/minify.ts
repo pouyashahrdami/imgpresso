@@ -10,28 +10,42 @@ export async function optimizeFolder(
 ) {
   fs.mkdirSync(outputDir, { recursive: true });
   const files = fs.readdirSync(inputDir);
+  const supportedFormats = ["jpg", "jpeg", "png", "webp", "avif", "tiff"];
+
   for (const file of files) {
     const ext = path.extname(file).slice(1).toLowerCase();
     if (!formats.includes(ext)) continue;
-
+    if (file.startsWith(".")) continue;
     const inputPath = path.join(inputDir, file);
     const tempOutputPath = path.join(outputDir, `.temp-${file}`);
     const finalOutputPath = path.join(outputDir, file);
 
     try {
+      if (!supportedFormats.includes(ext)) {
+        console.log(`⏭ Skipping unsupported format: ${file}`);
+        continue;
+      }
       const { size: originalSize } = fs.statSync(inputPath);
 
       let img = sharp(inputPath);
 
-      if (ext === "jpg" || ext === "jpeg") {
-        img = img.jpeg({ quality });
-      } else if (ext === "png") {
-        img = img.png({ compressionLevel: 9 });
-      } else if (ext === "webp") {
-        img = img.webp({ quality });
-      } else {
-        console.log(`⏭ Unsupported format: ${file}`);
-        continue;
+      switch (ext) {
+        case "jpg":
+        case "jpeg":
+          img = img.jpeg({ quality });
+          break;
+        case "png":
+          img = img.png({ compressionLevel: 9 });
+          break;
+        case "webp":
+          img = img.webp({ quality });
+          break;
+        case "avif":
+          img = img.avif({ quality });
+          break;
+        case "tiff":
+          img = img.tiff({ quality });
+          break;
       }
       await img.toFile(tempOutputPath);
       const { size: newSize } = fs.statSync(tempOutputPath);
