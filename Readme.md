@@ -1,4 +1,4 @@
-# 🖼️ img-minify
+# 🖼️ imgpresso
 
 **A blazing-fast, local image optimizer CLI built with Node.js + TypeScript.**  
 Compress JPG, PNG, WebP, AVIF, and TIFF images without using any external APIs (no TinyPNG, no limits).
@@ -18,31 +18,41 @@ Compress JPG, PNG, WebP, AVIF, and TIFF images without using any external APIs (
 
 ## 📦 Installation
 
+### Use via `npm`
+
+```bash
+npm i imgpresso
+```
+
 ### Use via `npx` (no install)
 
 ```bash
-npx img-minify ./images
+npx imgpresso ./images
 ```
 
 ### Or install globally
 
 ```bash
-npm install -g img-minify
-img-minify ./images
+npm install -g imgpresso
+imgpresso ./images
 ```
+
+---
 
 ### 🛠️ Usage
 
 ```bash
-img-minify <input-folder> [options]
+imgpresso <input-folder> [options]
 ```
 
 ### Basic Example
 
 ```bash
-img-minify ./images --quality 70 --formats jpg,png
+imgpresso ./images --quality 70 --formats jpg,png
 
 ```
+
+---
 
 ### 🧪 Coming Soon
 
@@ -50,7 +60,7 @@ Watch mode (--watch)
 
 GUI drag-and-drop interface
 
-VS Code extension
+## VS Code extension
 
 ### 🤝 Contributing
 
