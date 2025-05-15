@@ -1,8 +1,10 @@
+#!/usr/bin/env node
+
 import { Command, program } from "commander";
 import { optimizeFolder } from "./minify";
 
 program
-  .name("img-minify")
+  .name("imgpresso")
   .description("CLI to optimize images in a folder")
   .version("1.0.0")
   .argument("<input>", "Input folder")

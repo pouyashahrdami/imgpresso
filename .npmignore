@@ -1,0 +1,18 @@
+# Development and source folders
+src/
+images/
+out/
+node_modules/
+
+# Project files not needed by users
+tsconfig.json
+*.log
+*.ts
+*.md
+
+# exclude config/docs
+.gitignore
+.npmignore
+CONTRIBUTING.md
+ISSUE_TEMPLATE.md
+CODE_OF_CONDUCT.md
