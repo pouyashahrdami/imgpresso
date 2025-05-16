@@ -7,6 +7,10 @@
     "build": "tsup src/cli.ts --out-dir bin --minify --target node22 --format esm,cjs",
     "start": "ts-node src/cli.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pouyashahrdami/imgpresso"
+  },
   "bin": {
     "imgpresso": "bin/cli.js"
   },
