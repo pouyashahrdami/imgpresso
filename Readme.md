@@ -48,7 +48,7 @@ imgpresso <input-folder> [options]
 ### Basic Example
 
 ```bash
-imgpresso ./images --quality 70 --formats jpg,png
+imgpresso ./images --quality 70
 
 ```
 

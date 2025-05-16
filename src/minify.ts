@@ -11,7 +11,7 @@ export async function optimizeFolder(
   fs.mkdirSync(outputDir, { recursive: true });
   const files = fs.readdirSync(inputDir);
   const supportedFormats = ["jpg", "jpeg", "png", "webp", "avif", "tiff"];
-
+    
   for (const file of files) {
     const ext = path.extname(file).slice(1).toLowerCase();
     if (!formats.includes(ext)) continue;
